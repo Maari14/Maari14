@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing Page with Filtering</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="form-group">
+            <label for="categoryFilter">Filter by Category:</label>
+            <select id="categoryFilter" class="form-control">
+                <option value="all">All</option>
+                <option value="electronics">Electronics</option>
+                <option value="books">Books</option>
+                <option value="home&kitchen">Home & Kitchen</option>
+                <option value="toys&games">Toys & Games</option>
+                
+            </select>
+        </div>
+
+        <div class="row" id="pricingOptions">
+            <!-- Pricing options will be dynamically added here -->
+        </div>
+    </div>
+
+    <script>
+        // Sample pricing data (you can replace this with your actual data)
+        const pricingData = [
+        { id: 1, category: 'electronics', name: 'product1', price: 799.99, features: ['electronics 1', 'electronics 2', 'electronics 3'] },
+            { id: 2, category: 'books', name: 'product2', price: 39.90, features: ['books 1', 'books 2', 'books 3', ] },
+            { id: 3, category: 'home&kitchen', name: 'product3', price: 59.098, features: ['home&kitchen 1', 'home&kitchen 2', 'home&kitchen 3', 'home&kitchen 4', ] },
+            { id: 4, category: 'toys&games', name: 'product4', price: 229, features: ['toys&games 1', 'toys&games 2', 'toys&games 3', 'toys&games 4', ] },
+            { id: 5, category: 'electronics', name: 'product5', price: 597, features: ['electronics 1', 'electronics 2', 'electronics 3'] },
+            { id: 6, category: 'books', name: 'product6', price: 769, features: ['books 1', 'books 2', 'books 3', 'books 4', 'books 5'] }
+       
+        ];
+
+        const categoryFilter = document.getElementById('categoryFilter');
+        const pricingOptionsContainer = document.getElementById('pricingOptions');
+
+        function displayPricingOptions(pricingData) {
+            pricingOptionsContainer.innerHTML = '';
+
+            pricingData.forEach(option => {
+                const card = document.createElement('div');
+                card.className = 'col-md-4 mb-4';
+                card.innerHTML = `
+                    <div class="card">
+                        <div class="card-header bg-${option.category} text-white">
+                            ${option.name}
+                        </div>
+                        <div class="card-body">
+                            <h2 class="card-title">$${option.price}/month</h2>
+                            <ul class="list-unstyled">
+                                ${option.features.map(feature => `<li>${feature}</li>`).join('')}
+                            </ul> 
+                            <a href="#" class="btn btn-${option.category} btn-block">Get Started</a>
+                        </div>
+                    </div>
+                `;
+
+                pricingOptionsContainer.appendChild(card);
+            });
+        }
+
+        categoryFilter.addEventListener('change', function () {
+            const selectedCategory = categoryFilter.value;
+            if (selectedCategory === 'all') {
+                displayPricingOptions(pricingData);
+            } else {
+                const filteredData = pricingData.filter(option => option.category === selectedCategory);
+                displayPricingOptions(filteredData);
+            }
+        });
+
+        // Initial display
+        displayPricingOptions(pricingData);
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
