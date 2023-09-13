@@ -2,4 +2,4 @@
 -  I created gallery upload and authentication using mern stack
 -  if u click signup button it will navigate to gallery upload page
 -  In that page one + button is avaialble by using that one we can upload images."only jpeg "
--  For run code "npm start"
+-  For run code "npm start".
